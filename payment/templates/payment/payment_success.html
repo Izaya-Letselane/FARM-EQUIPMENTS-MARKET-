@@ -1,0 +1,25 @@
+<h1>payment</h1>
+<script>
+	paypal.Buttons({
+		createOrder: function(data, actions) {
+			return (actions.order.create)({
+				purchase_units: [{
+				amount: {
+				value: '{{ totals }}'
+				}
+      }]
+			});
+		},
+		
+		onApprove: function(data, actions){
+      return actions.order.capture().then(function(details){
+        var payerName = details.payer.name.given_name;
+        if (details.payer.name.surname) {
+            payerName += ' ' + details.payer.name.surname;
+        }
+      alert('Transaction completed by ' + payerName);
+    });
+  }
+  }).render('#paypal-button-container');
+
+</script>

@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PayPal Button</title>
+<style media="screen">
+    /* Styles for the PayPal button container */
+    #paypal-button-container {
+        text-align: center;
+        margin-top: 200px; 
+        margin-left: 200px; /* Adjust this value as needed */
+    }
+
+    /* Styles for the PayPal button */
+    .paypal-button {
+        max-width: 200px; /* Adjust the width of the button */
+        padding: 10px 20px; /* Add padding to the button */
+        background-color: #007bff; /* Button background color */
+        color: #fff; /* Button text color */
+        border: none; /* Remove button border */
+        border-radius: 5px; /* Add border radius */
+        cursor: pointer; /* Change cursor to pointer */
+        transition: background-color 0.3s; /* Add transition effect */
+    }
+
+    /* Hover effect for the PayPal button */
+    .paypal-button:hover {
+        background-color: #0056b3; /* Change background color on hover */
+    }
+</style>
+</head>
+<body>
+
+<!-- PayPal button container -->
+<div id="paypal-button-container"></div>
+<br><br><br><br><br>
+<br><br><br><br><br>
+<br><br><br><br><br>
+
+<!-- Include the PayPal JavaScript SDK -->
+<script src="https://www.paypal.com/sdk/js?client-id=AfZI0k1h5-3fkbmGEz3UbZX67uuM8Th8UNzU71JfnhurrU5ahN4Up2ETViLQStmjgJD2uKBuihDai7N9&currency=USD"></script>
+
+<script>
+    // Render the PayPal button into #paypal-button-container
+    paypal.Buttons({
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: '100.00'
+                    }
+                }]
+            });
+        },
+        
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                var payerName = details.payer.name.given_name;
+                if (details.payer.name.surname) {
+                    payerName += ' ' + details.payer.name.surname;
+                }
+                alert('Transaction completed by ' + payerName);
+            });
+        }
+    }).render('#paypal-button-container');
+</script>
+
+</body>
+</html>
+
+
+
+{% endblock %}

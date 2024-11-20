@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container px-4 px-lg-5 my-5">
+  <h1 class="text-center fw-bolder">UPDATE USER INFORMATION</h1>
+</div>
+<!--
+<br>
+<strong> Payment Information</strong>
+<br>
+-->
+
+<form method="POST" action="{% url 'update_info'%}">
+  {% csrf_token %}
+  <div class="container mt-4 mb-5">
+    <center>
+      {% csrf_token %}
+     
+        {{form.as_p}}
+      
+      <br>
+      <br>
+      <strong>Shipping Details</strong>
+      {{ shipping_form.as_p }}
+      <button type="submit" class="btn btn-success">Update</button>
+   </form>
+   <br>
+   <br>
+   <!--
+     <a href="{% url 'update_password' %}" class="btn btn-danger">Update Password</a>  
+   -->
+  </center>
+ 
+</div>
+    
+{% endblock %}

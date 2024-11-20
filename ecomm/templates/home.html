@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %} Home {% endblock%}
+{% block content %}
+<section class=" p-3 bg-light">
+  <div class="container">
+    <p class="lead text-dark" style="font-family: Courier, monospace;">
+      <i>
+        <strong style="font-size: 50px;">Harvest Success, <span style="color: crimson;">Cultivate</span> Prosperity. Your <span style="color: crimson;">Field</span>, Our Tools. </strong>
+      </i>
+    </p>
+  </div>
+  <div class="container px-4 px-lg-5 mt-5">
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+    {% for product in products %}
+      {%if product.is_sale %}
+      <div class="col mb-5">
+        <div class="card h-100 shadow p-3 mb-5 bg-body rounded">
+          <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; left: 0.5rem">Sale</div>
+            <img class="card-img-top h-100" src="{{product.image.url}}" alt="..." />
+      
+            <div class="card-body p-4">
+                <div class="text-center">
+                    
+                    <h5 class="fw-bolder">{{product.productName}}</h5>
+                    
+                    <strike><p class="card-text"><strong>Price:R</strong> {{product.price}}</p></strike>
+                    <p class="card-text"><strong>Price:R</strong> {{product.sale_price}}</p>
+                </div>
+            </div>
+            
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center"><a class="btn btn-outline-success mt-auto" href="{% url 'product' product.id %}"><i class="fa fa-eye text-white" style="font-size: 20px;"></i>View Product</a></div>
+            </div>
+        </div>
+    </div>
+      {% else %}
+    
+      
+          <div class="col mb-5">
+              <div class="card h-100">
+                 
+                  <img class="card-img-top h-100"  src="{{product.image.url}}" alt="..." />
+            
+                  <div class="card-body p-4">
+                      <div class="text-center">
+                          
+                          <h5 class="fw-bolder">{{product.productName}}</h5>
+                          
+                          <p class="card-text"><strong>Price:R</strong> {{product.price}}</p>
+                      </div>
+                  </div>
+                  
+                  <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                      <div class="text-center"><a class="btn btn-outline-success mt-auto" href="{% url 'product' product.id %}"><i class="fa fa-eye text-white" style="font-size: 20px;"></i>View Product</a></div>
+                  </div>
+              </div>
+          </div>
+       {% endif %}
+        
+    {% endfor %}
+    <br>
+    <br>
+    <a href="mailto:izayaletselane@gmail.com" class="btn btn-outline-success">Email Us</a>
+  </div>
+  </div>
+     
+</section>
+
+{% endblock %}

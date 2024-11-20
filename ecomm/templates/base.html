@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-success navbar-dark ">
+        <div class="container-fluid">
+            <a href="{% url 'home' %}" class="navbar-brand" style=" font-family: Papyrus;">FarmEqMarket</a>
+          
+            <form method="POST" action="{% url 'search' %}" style="width: 500px; margin-left: 300px">
+              {% csrf_token %}
+              <div class="input-group mb-1 " >
+                <input type="text" class="form-control"  placeholder="search" name="searched">
+                <button  class="btn btn-outline-secondary" type="submit" >
+                  <i class="fa fa-search text-white" style="font-size: 20px;"></i>
+                </button >
+              </div>
+            </form>
+         
+            
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navmenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navmenu">
+                <ul class="navbar-nav ms-auto" style="font-family: Arial, Helvetica, sans-serif;">
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="fa fa-user text-white" style="font-size: 20px;"></i>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item" href="{% url 'update_user' %}"><i class="fa fa-user text-dark" style="font-size: 20px;"></i>Update User</a></li>
+                      <li><a class="dropdown-item" href="{% url 'update_info' %}"><i class="fa fa-user text-dark" style="font-size: 20px;"></i>User Info</a></li>
+                    </ul>
+                  </li>
+                    <li class="nav-items">
+                        <a href="/" class="nav-link">Home</a>
+                    </li>
+                    <!--
+                       <li class="nav-items">
+                      <a href="{% url 'search' %}" class="nav-link"><i class="fa fa-search text-white" style="font-size: 20px;"></i></a>
+                    </li>
+                    -->
+                     
+                    
+                    
+                    <li class="nav-items">
+                        <a href="{% url 'about' %}" class="nav-link">About</a>
+                    </li>
+                    
+                    {% if user.is_authenticated %}
+                    <!--
+                         <li class="nav-items">
+                        <a href="{% url 'update_user' %}" class="nav-link">Profile</a>
+                    </li>
+                    -->
+                   
+                  
+                    <li class="nav-items">
+                        <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="{% url 'register' %}">Register</a>
+                    </li>
+                    {% endif %}
+    
+                    </li>
+                   
+                    <li>
+                        <a type="button" class="btn btn-danger position-relative" href="{% url 'cart_summary' %}">
+                            <i class="fa fa-shopping-cart fw-bolder"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cart_quantity">
+                              {{ cart|length}}
+                            </span>
+                          </a>  
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+    </nav>
+    {% if messages %}
+      {% for message in messages %}
+      <div id="myAlert" class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% endfor %}
+
+    {% endif %}
+    {% block  content %}
+
+    {% endblock %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-success">
+        <div class="row ">
+          <div class="col text-white" style="margin-left:20px">
+              <strong></strong><p style="color: white; font-family: Papyrus;">COME <span style="color: crimson;">SHOP</span> WITH US<span style="color: crimson;">!!</span></p>
+              <p class="lead">
+                <i class="fa fa-map-marker text-white" style="font-size: 20px;"></i>
+                187 Samehada Street, Hidden Mist City
+               </p>
+               <p class="lead">
+                <i class="fa fa-phone text-white" style="font-size: 20px;"></i>
+                0769888521
+               </p>
+               <p class="lead">
+                <i class="fa fa-envelope text-white" style="font-size: 20px;"></i>
+                itachiuchiha@gmail.com
+               </p>
+           
+          </div>
+          <div class="col d-flex justify-content-end" style="margin-left:800px">
+            <p class="lead">
+                <i class="fa fa-facebook text-white" style="font-size: 20px; margin-right:15px;"></i>
+        
+               </p>
+               <p class="lead">
+                <i class="fa fa-instagram text-white" style="font-size: 20px; margin-right:15px;"></i>
+        
+               </p>
+               <p class="lead">
+                <i class="fa fa-twitter text-white" style="font-size: 20px; margin-right:15px;"></i>
+        
+               </p>
+               <p class="lead">
+                <i class="fa fa-pinterest text-white" style="font-size: 20px; margin-right:15px;"></i>
+        
+               </p>
+          </div>
+        </div>
+    </nav>
+    <!-- Include jQuery from CDN -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script>
+      // Auto close the alert after 5 seconds (5000 milliseconds)
+      setTimeout(function() {
+          $('#myAlert').alert('close');
+      }, 2000);
+  </script>
+</body>
+</html>
